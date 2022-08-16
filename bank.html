@@ -27,11 +27,11 @@
                     </div>
                     <div class="bg-purple-400 px-6 py-8 rounded text-white">
                         <h4 class="text-2xl font-semibold">Withdraw</h4>
-                        <h2 class="text-3xl font-semibold">$ <span id="withdrawTotalAmaount">0</span></h2>
+                        <h2 class="text-3xl font-semibold">$ <span id="withdrawTotalAmaount">00</span></h2>
                     </div>
                     <div class="bg-fuchsia-400 px-6 py-8 rounded text-white">
                         <h4 class="text-2xl font-semibold">Balance</h4>
-                        <h2 class="text-3xl font-semibold">$<span id="balance">1200</span></h2>
+                        <h2 class="text-3xl font-semibold">$<span id="balance">00</span></h2>
                     </div>
                 </div>
             </div>
@@ -59,26 +59,31 @@
             </div>
         </section>
     </main>
+
     <script>
         document.getElementById('deposit-btn').addEventListener('click', function () {
             let depositInput = document.getElementById('deposit-amaount');
             let depositInputValue = depositInput.value;
+            let depositInputValueConvert = parseFloat(depositInputValue);
             if (depositInputValue !== '') {
-                let depositTotalConvert = parseFloat(depositInputValue.innerText);
-                if (depositTotalConvert > 0) {
+                if (depositInputValueConvert > 0) {
                     let depositField = document.getElementById('deposit-total');
-                    let depositFieldValue = parseFloat(depositField.innerText);
-                    // const depositInput = document.getElementById('deposit-amaount');
-                    // const depositInputValue = parseFloat(document.getElementById('deposit-amaount').value);
-                    depositField.innerText = depositFieldValue + depositInputValue;
+                    let depositTotal = parseFloat(depositField.innerText);
+                    let depositFieldPrev = parseFloat(depositField.innerText);
+                    const depositInput = document.getElementById('deposit-amaount');
+                    const depositInputValue = parseFloat(document.getElementById('deposit-amaount').value);
+                    depositField.innerText = depositFieldPrev + depositInputValue;
                     depositInput.value = '';
+
                     //balance
                     let balance = document.getElementById('balance');
                     let balanceAmaount = parseFloat(balance.innerText);
                     balance.innerText = balanceAmaount + depositInputValue;
+
                 }
                 else {
                     alert('Please enter the amount that you want to withdraw. Amount should be minimum $1');
+                    depositInput.value = '';
                 }
             }
             else {
@@ -108,11 +113,13 @@
                     }
                     else {
                         alert('Please enter the amount that you want to withdraw. Amount should be minimum $1');
+                        withdrawInput.value = '';
                     }
 
                 }
                 else {
                     alert('your account does not have enough balance.');
+                    withdrawInput.value = '';
 
                 }
             }
